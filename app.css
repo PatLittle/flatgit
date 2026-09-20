@@ -44,6 +44,11 @@ input:focus, select:focus, textarea:focus { outline: 2px solid color-mix(in srgb
 .hidden { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; clip: rect(0,0,0,0); overflow: hidden; white-space: nowrap; }
 .topbar { height: 60px; display: grid; grid-template-columns: minmax(260px,720px) auto; justify-content: center; align-items: center; gap: 1rem; padding: 0 1.25rem; background: var(--header); color: #f0f6fc; border-bottom: 1px solid #30363d; position: sticky; top: 0; z-index: 20; }
+.topbar-brand { display: none; }
+.mode-simple .topbar { grid-template-columns: auto minmax(260px,720px) auto; justify-content: space-between; }
+.mode-simple .topbar-brand { display: inline-flex; }
+.mode-simple .sidebar { display: none; }
+body.workspace-active.mode-simple { padding-left: 0; }
 .brand { display: inline-flex; gap: .55rem; align-items: center; font-weight: 750; font-size: 1.05rem; color: #f0f6fc; text-decoration: none; }
 .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 7px; color: #fff; background: var(--accent); }
 .url-form { display: flex; gap: .5rem; }
