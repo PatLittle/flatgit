@@ -44,9 +44,9 @@ input:focus, select:focus, textarea:focus { outline: 2px solid color-mix(in srgb
 .hidden { display: none !important; }
 .sr-only { position: absolute; width: 1px; height: 1px; clip: rect(0,0,0,0); overflow: hidden; white-space: nowrap; }
 .topbar { height: 60px; display: grid; grid-template-columns: minmax(260px,720px) auto; justify-content: center; align-items: center; gap: 1rem; padding: 0 1.25rem; background: var(--header); color: #f0f6fc; border-bottom: 1px solid #30363d; position: sticky; top: 0; z-index: 20; }
-.topbar-brand { display: none; }
+.topbar .topbar-brand { display: none; }
 .mode-simple .topbar { grid-template-columns: auto auto; justify-content: space-between; }
-.mode-simple .topbar-brand { display: inline-flex; }
+.mode-simple .topbar .topbar-brand { display: inline-flex; }
 .mode-simple .url-form { display: none; }
 .mode-simple .sidebar { display: none; }
 .mode-simple .minimal-inline-actions,
@@ -181,6 +181,7 @@ tr:hover td { background: var(--row-hover); }
 .page-input { width: 5.5rem; padding: .5rem .55rem; text-align: center; }
 .pagination .page-size { margin-left: 1rem; }
 .markdown-shell { max-width: 1050px; margin: 0 auto; padding: 1.2rem; }
+.markdown-shell.split-active { max-width: none; padding: .75rem clamp(.75rem,2vw,1.5rem); }
 .view-tabs { display: flex; gap: .35rem; margin-bottom: 1rem; }
 .view-tabs button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 .markdown-rendered { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: clamp(1.5rem,4vw,3rem); line-height: 1.6; overflow: hidden; }

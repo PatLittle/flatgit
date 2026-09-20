@@ -679,9 +679,9 @@
     const renderedBtn=document.createElement('button'),sourceBtn=document.createElement('button'),splitBtn=document.createElement('button'),tabGroup=document.createElement('div');tabGroup.className='json-tabs';renderedBtn.textContent='Rendered';sourceBtn.textContent='Source';splitBtn.textContent='Split';tabGroup.append(renderedBtn,sourceBtn,splitBtn);tabs.append(tabGroup);appendMinimalActions(tabs);const body=document.createElement('div');shell.append(tabs,body);els.viewer.replaceChildren(shell);
     const makeRendered=()=>{const d=document.createElement('article');d.className='markdown-rendered';d.innerHTML=markdownHtml(text,path);rewriteMarkdownLinks(d,path);runMermaid(d);return d;};
     const setActive=b=>[renderedBtn,sourceBtn,splitBtn].forEach(x=>x.classList.toggle('active',x===b));
-    renderedBtn.onclick=()=>{body.replaceChildren(makeRendered());setActive(renderedBtn);};
-    sourceBtn.onclick=()=>{body.innerHTML=`<div class="source-view"><pre><code>${escapeHtml(text)}</code></pre></div>`;setActive(sourceBtn);};
-    splitBtn.onclick=()=>{const split=document.createElement('div');split.className='split-view';split.innerHTML=`<div class="source-view"><pre><code>${escapeHtml(text)}</code></pre></div>`;split.append(makeRendered());body.replaceChildren(split);setActive(splitBtn);};
+    renderedBtn.onclick=()=>{shell.classList.remove('split-active');body.replaceChildren(makeRendered());setActive(renderedBtn);};
+    sourceBtn.onclick=()=>{shell.classList.remove('split-active');body.innerHTML=`<div class="source-view"><pre><code>${escapeHtml(text)}</code></pre></div>`;setActive(sourceBtn);};
+    splitBtn.onclick=()=>{shell.classList.add('split-active');const split=document.createElement('div');split.className='split-view';split.innerHTML=`<div class="source-view"><pre><code>${escapeHtml(text)}</code></pre></div>`;split.append(makeRendered());body.replaceChildren(split);setActive(splitBtn);};
     renderedBtn.click();
   }
 
