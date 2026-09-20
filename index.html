@@ -58,6 +58,90 @@
         <article><strong>Markdown</strong><span>Rendered, source and split views with repo-aware links.</span></article>
         <article><strong>Git-aware</strong><span>Browse branches, paths and file commit history.</span></article>
       </div>
+
+      <section id="usage" class="usage-guide" aria-labelledby="usage-title">
+        <header class="usage-heading">
+          <p class="eyebrow">Usage guide</p>
+          <h2 id="usage-title">View GitHub files without cloning a repository.</h2>
+          <p>Paste a public GitHub repository, file, or Gist URL above. Full view adds repository and branch navigation; minimal view keeps the focus on the linked file. FlatGit runs entirely in your browser and does not require a sign-in.</p>
+        </header>
+
+        <div class="usage-grid">
+          <article>
+            <h3>Repository and file tools</h3>
+            <ul>
+              <li>Browse public repositories, branches, folders, files, and multi-file Gists.</li>
+              <li>Expand folders lazily, copy the viewer link, or open the raw file and its GitHub page.</li>
+              <li>See file size, detected type, branch, and last-modified date.</li>
+              <li>Use <strong>Full view</strong> for navigation or <strong>Minimal view</strong> for a clean, shareable preview.</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Interactive tables</h3>
+            <p>CSV, TSV, JSON records, SQLite results, and Parquet rows use the table viewer. Search all columns, filter individual columns, sort, resize or reorder columns, choose visible columns, change page size, jump to a page, and export the filtered visible data as CSV.</p>
+          </article>
+        </div>
+
+        <section class="usage-section" aria-labelledby="formats-title">
+          <h3 id="formats-title">Supported previews</h3>
+          <div class="usage-table-wrap">
+            <table class="usage-table">
+              <thead><tr><th>Content</th><th>Extensions</th><th>Preview</th></tr></thead>
+              <tbody>
+                <tr><td>Delimited data</td><td><code>.csv</code>, <code>.tsv</code></td><td>Interactive table with search, filters, sorting, pagination, column controls, and CSV export.</td></tr>
+                <tr><td>JSON data</td><td><code>.json</code>, <code>.jsonl</code>, <code>.ndjson</code>, <code>.geojson</code></td><td>Table view for record arrays plus a collapsible, syntax-highlighted JSON tree/source view.</td></tr>
+                <tr><td>Markdown</td><td><code>.md</code>, <code>.markdown</code>, <code>.mdown</code>, <code>.mkd</code></td><td>Rendered, Source, and Split modes with GitHub styling, safe HTML, repository-relative links/images, badges, and Mermaid fences.</td></tr>
+                <tr><td>Mermaid</td><td><code>.mmd</code>, <code>.mermaid</code></td><td>Rendered diagram preview.</td></tr>
+                <tr><td>Parquet</td><td><code>.parquet</code>, <code>.pq</code></td><td>Interactive table; up to the first 5,000 rows are loaded in the browser.</td></tr>
+                <tr><td>SQLite</td><td><code>.sqlite</code>, <code>.sqlite3</code>, <code>.db</code>, <code>.db3</code>, <code>.sdb</code></td><td>Choose a table or view and run read-only SQL in the in-browser database.</td></tr>
+                <tr><td>PDF</td><td><code>.pdf</code></td><td>Native browser PDF preview.</td></tr>
+                <tr><td>Raster images</td><td><code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.gif</code>, <code>.webp</code>, <code>.avif</code>, <code>.bmp</code>, <code>.ico</code></td><td>Responsive image preview.</td></tr>
+                <tr><td>SVG</td><td><code>.svg</code></td><td>Sanitized rendered graphic plus its source.</td></tr>
+                <tr><td>Microsoft Word</td><td><code>.doc</code>, <code>.docx</code>, <code>.docm</code>, <code>.dot</code>, <code>.dotx</code>, <code>.dotm</code>, <code>.rtf</code></td><td>Microsoft Office web preview from the public raw-file URL.</td></tr>
+                <tr><td>Microsoft Excel</td><td><code>.xls</code>, <code>.xlsx</code>, <code>.xlsm</code>, <code>.xlsb</code>, <code>.xlm</code>, <code>.xlt</code>, <code>.xltx</code>, <code>.xltm</code></td><td>Microsoft Office web preview.</td></tr>
+                <tr><td>Microsoft PowerPoint</td><td><code>.ppt</code>, <code>.pptx</code>, <code>.pptm</code>, <code>.pps</code>, <code>.ppsx</code>, <code>.ppsm</code>, <code>.pot</code>, <code>.potx</code>, <code>.potm</code></td><td>Microsoft Office web preview.</td></tr>
+                <tr><td>Other Microsoft formats</td><td><code>.one</code>, <code>.onepkg</code>, <code>.vsd</code>, <code>.vsdx</code>, <code>.vsdm</code>, <code>.vdx</code>, <code>.vss</code>, <code>.vssx</code>, <code>.vst</code>, <code>.vstx</code>, <code>.pub</code>, <code>.pubx</code>, <code>.mpp</code>, <code>.mpt</code>, <code>.mpd</code>, <code>.accdb</code>, <code>.accde</code>, <code>.accdr</code>, <code>.accdt</code>, <code>.mdb</code>, <code>.mde</code>, <code>.msg</code>, <code>.eml</code></td><td>Microsoft Office web preview when the service supports the file.</td></tr>
+                <tr><td>Code and text</td><td>Any other text-based extension</td><td>Read-only Ace editor with syntax detection, highlighting, line numbers, search, and collapse/expand controls. Unknown formats fall back to plain text.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="usage-grid">
+          <article>
+            <h3>Query SQLite files</h3>
+            <p>Select a table or view, edit the generated query, then choose <strong>Run query</strong>. FlatGit accepts read-only <code>SELECT</code>, <code>WITH</code>, <code>PRAGMA</code>, and <code>EXPLAIN</code> statements.</p>
+            <pre><code>-- Preview 25 rows
+SELECT * FROM "table_name" LIMIT 25;
+
+-- Show the next 25 rows
+SELECT * FROM "table_name" LIMIT 25 OFFSET 25;
+
+-- Count every row
+SELECT COUNT(*) AS total_rows FROM "table_name";
+
+-- Count records by a category
+SELECT "category", COUNT(*) AS records
+FROM "table_name"
+GROUP BY "category"
+ORDER BY records DESC
+LIMIT 20;</code></pre>
+            <p>Use double quotes around table or column names containing spaces. Press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Enter</kbd> to run the query.</p>
+          </article>
+          <article>
+            <h3>Markdown display modes</h3>
+            <ul>
+              <li><strong>Rendered:</strong> formatted GitHub-Flavoured Markdown with safe HTML, images, links, tables, badges, and Mermaid diagrams.</li>
+              <li><strong>Source:</strong> the original Markdown text.</li>
+              <li><strong>Split:</strong> source and rendered output side by side.</li>
+            </ul>
+            <h3>History and comparison</h3>
+            <p>Choose <strong>History</strong> on a repository file to load up to 100 commits that touched its path. Select older and newer commits to see GitHub’s line patch, commit messages, dates, short SHAs, and addition/deletion totals. Gists and binary files may not provide a comparable text patch.</p>
+            <h3>Theme and shortcuts</h3>
+            <p>The ◐ control—or <kbd>T</kbd>—switches between light and dark themes and remembers the choice in this browser. Choose <strong>?</strong> for all keyboard shortcuts.</p>
+          </article>
+        </div>
+      </section>
     </section>
 
     <section id="workspace" class="workspace hidden" aria-live="polite">
@@ -116,7 +200,10 @@
       <div><dt><kbd>?</kbd></dt><dd>Open this shortcuts page</dd></div>
       <div><dt><kbd>Esc</kbd></dt><dd>Close this shortcuts page</dd></div>
     </dl>
-    <p class="shortcut-note">Shortcuts are ignored while typing in a form field or code viewer.</p>
+    <div class="shortcut-footer">
+      <p class="shortcut-note">Shortcuts are ignored while typing in a form field or code viewer.</p>
+      <a class="button-link" href="./" data-home>FlatGit landing page</a>
+    </div>
   </dialog>
 
   <template id="table-template">
