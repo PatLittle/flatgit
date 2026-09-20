@@ -35,6 +35,8 @@
   };
 
   $$('[data-home]').forEach(link => { link.href = `${basePath}/`; });
+  els.modeToggle.textContent = viewMode === 'full' ? 'Minimal view' : 'Full view';
+  els.modeToggle.title = viewMode === 'full' ? 'Switch to minimal view (Shift+M)' : 'Switch to full view (Shift+M)';
 
   const EXT = {
     table: ['csv', 'tsv'],
@@ -594,7 +596,8 @@
   function renderTable(rows, columns, mount=els.viewer) {
     const frag = $('#table-template').content.cloneNode(true); const root = $('.table-view',frag); mount.replaceChildren(frag);
     const search=$('.table-search',root), count=$('.result-count',root), thead=$('thead',root), tbody=$('tbody',root),
-      prev=$('.prev-page',root), next=$('.next-page',root), pageLabel=$('.page-label',root), pageSize=$('.page-size',root),
+      first=$('.first-page',root), prev=$('.prev-page',root), next=$('.next-page',root), last=$('.last-page',root),
+      pageInput=$('.page-input',root), pageTotal=$('.page-total',root), pageSize=$('.page-size',root),
       colPanel=$('.column-panel',root), columnsBtn=$('.columns-button',root), downloadBtn=$('.download-button',root);
     if (mount === els.viewer) appendMinimalActions($('.table-control-actions', root));
     if (!columns?.length) columns=[...new Set(rows.flatMap(r=>Object.keys(r||{})))];
@@ -639,10 +642,11 @@
         $('.column-resizer',th).onpointerdown=e=>{e.preventDefault();e.stopPropagation();const startX=e.clientX,startW=th.getBoundingClientRect().width;const move=ev=>{widths.set(c,Math.max(90,Math.round(startW+ev.clientX-startX)));renderHeader();};const up=()=>{window.removeEventListener('pointermove',move);window.removeEventListener('pointerup',up);render();};window.addEventListener('pointermove',move);window.addEventListener('pointerup',up);};
       });
     }
-    function render(){ const data=filtered(), pages=Math.max(1,Math.ceil(data.length/size)); page=Math.min(page,pages); const start=(page-1)*size, slice=data.slice(start,start+size); renderHeader(); tbody.innerHTML=slice.map(r=>'<tr>'+columns.filter(c=>visible.has(c)).map(c=>`<td>${cell(r?.[c])}</td>`).join('')+'</tr>').join(''); count.textContent=`${data.length.toLocaleString()} of ${rows.length.toLocaleString()} rows`;pageLabel.textContent=`Page ${page.toLocaleString()} of ${pages.toLocaleString()}`;prev.disabled=page<=1;next.disabled=page>=pages; }
+    function render(){ const data=filtered(), pages=Math.max(1,Math.ceil(data.length/size)); page=Math.max(1,Math.min(page,pages)); const start=(page-1)*size, slice=data.slice(start,start+size); renderHeader(); tbody.innerHTML=slice.map(r=>'<tr>'+columns.filter(c=>visible.has(c)).map(c=>`<td>${cell(r?.[c])}</td>`).join('')+'</tr>').join(''); count.textContent=`${data.length.toLocaleString()} of ${rows.length.toLocaleString()} rows`;pageInput.value=page;pageInput.max=pages;pageTotal.textContent=`of ${pages.toLocaleString()}`;first.disabled=prev.disabled=page<=1;next.disabled=last.disabled=page>=pages; }
+    function goToEnteredPage(){ const pages=Math.max(1,Math.ceil(filtered().length/size)), requested=Number.parseInt(pageInput.value,10);page=Number.isFinite(requested)?Math.max(1,Math.min(requested,pages)):page;render(); }
     colPanel.innerHTML=columns.map(c=>`<label class="column-toggle"><input type="checkbox" checked data-col="${escapeHtml(c)}">${escapeHtml(c)}</label>`).join('');
     $$('input[type=checkbox]',colPanel).forEach(cb=>cb.onchange=()=>{cb.checked?visible.add(cb.dataset.col):visible.delete(cb.dataset.col);render();});
-    columnsBtn.onclick=()=>colPanel.classList.toggle('hidden'); search.oninput=()=>{query=search.value.trim();page=1;render();}; prev.onclick=()=>{page--;render();};next.onclick=()=>{page++;render();};pageSize.onchange=()=>{size=+pageSize.value;page=1;render();};
+    columnsBtn.onclick=()=>colPanel.classList.toggle('hidden'); search.oninput=()=>{query=search.value.trim();page=1;render();};first.onclick=()=>{page=1;render();};prev.onclick=()=>{page--;render();};next.onclick=()=>{page++;render();};last.onclick=()=>{page=Math.max(1,Math.ceil(filtered().length/size));render();};pageInput.onchange=goToEnteredPage;pageInput.onkeydown=event=>{if(event.key==='Enter'){event.preventDefault();goToEnteredPage();pageInput.select();}};pageSize.onchange=()=>{size=+pageSize.value;page=1;render();};
     downloadBtn.onclick=()=>downloadCsv(filtered(),columns.filter(c=>visible.has(c)), state.currentFile?.name?.replace(/\.[^.]+$/,'')+'-filtered.csv');
     render();
   }

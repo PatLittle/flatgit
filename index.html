@@ -130,9 +130,15 @@
       <div class="column-panel hidden"></div>
       <div class="table-scroll"><table><thead></thead><tbody></tbody></table></div>
       <div class="pagination">
+        <button class="first-page" type="button">First</button>
         <button class="prev-page" type="button">← Previous</button>
-        <span class="page-label"></span>
+        <label class="page-jump">
+          <span>Page</span>
+          <input class="page-input" type="number" min="1" step="1" value="1" inputmode="numeric" aria-label="Current page">
+          <span class="page-total"></span>
+        </label>
         <button class="next-page" type="button">Next →</button>
+        <button class="last-page" type="button">Last</button>
         <select class="page-size" aria-label="Rows per page">
           <option value="25">25 rows</option>
           <option value="50" selected>50 rows</option>

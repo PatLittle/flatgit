@@ -151,6 +151,8 @@ tr:hover td { background: var(--row-hover); }
 .cell-url { word-break: break-all; }
 .cell-null { color: var(--muted); font-style: italic; }
 .pagination { display: flex; gap: .7rem; justify-content: center; align-items: center; padding: .8rem; border-top: 1px solid var(--border); background: var(--panel); }
+.page-jump { display: inline-flex; gap: .45rem; align-items: center; white-space: nowrap; }
+.page-input { width: 5.5rem; padding: .5rem .55rem; text-align: center; }
 .pagination .page-size { margin-left: 1rem; }
 .markdown-shell { max-width: 1050px; margin: 0 auto; padding: 1.2rem; }
 .view-tabs { display: flex; gap: .35rem; margin-bottom: 1rem; }
@@ -270,6 +272,8 @@ kbd { display: inline-block; min-width: 1.8em; padding: .15rem .38rem; text-alig
   .file-toolbar { flex-direction: column; }
   .toolbar-actions { justify-content: flex-start; }
   .table-controls { flex-direction: column; align-items: stretch; }
+  .pagination { flex-wrap: wrap; gap: .45rem; }
+  .pagination .page-size { margin-left: 0; }
   .search-wrap { min-width: 0; }
 }
 
