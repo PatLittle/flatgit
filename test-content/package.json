@@ -1,0 +1,11 @@
+{
+  "name": "flatgit-test-content",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:presentation": "node build_presentation.mjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "4.0.1"
+  }
+}

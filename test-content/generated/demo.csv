@@ -1,0 +1,7 @@
+id,name,category,count,price,date,active,url
+1,Markdown guide,documentation,14,0,2026-01-15,True,https://github.com/PatLittle/flatgit
+2,Orders table,data,240,19.95,2026-02-03,True,https://patlittle.github.io/flatgit/
+3,Office preview,document,8,42.5,2026-03-22,False,https://view.officeapps.live.com/
+4,SQLite query,database,86,7.25,2026-04-10,True,https://sqlite.org/
+5,Mermaid diagram,diagram,31,12,2026-05-19,True,https://mermaid.js.org/
+6,Parquet sample,data,175,33.4,2026-06-07,False,https://parquet.apache.org/

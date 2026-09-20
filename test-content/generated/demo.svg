@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">FlatGit sample values</title><desc id="desc">A simple bar chart with five values.</desc>
+  <rect width="800" height="420" fill="#f6f8fa"/>
+  <text x="50" y="55" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1f2328">FlatGit SVG preview</text>
+  <g fill="#0969da">
+    <rect x="70" y="250" width="90" height="110"/><rect x="205" y="190" width="90" height="170"/>
+    <rect x="340" y="120" width="90" height="240"/><rect x="475" y="220" width="90" height="140"/>
+    <rect x="610" y="155" width="90" height="205"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="18" fill="#656d76" text-anchor="middle">
+    <text x="115" y="392">CSV</text><text x="250" y="392">JSON</text><text x="385" y="392">Markdown</text><text x="520" y="392">SQLite</text><text x="655" y="392">Parquet</text>
+  </g>
+</svg>

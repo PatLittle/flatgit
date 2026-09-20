@@ -1,0 +1,3 @@
+FlatGit plain-text fallback
+
+Unknown text extensions remain readable even when no dedicated syntax mode exists.

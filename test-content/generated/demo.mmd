@@ -1,0 +1,6 @@
+flowchart TD
+    A[Paste a public GitHub URL] --> B{File type}
+    B -->|CSV JSON Parquet| C[Interactive table]
+    B -->|Markdown Mermaid| D[Rendered document]
+    B -->|SQLite| E[Read-only query]
+    B -->|Code or text| F[Syntax viewer]

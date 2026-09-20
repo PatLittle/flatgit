@@ -1,0 +1,6 @@
+{"id": 1, "name": "Markdown guide", "category": "documentation", "count": 14, "price": 0, "date": "2026-01-15", "active": true, "url": "https://github.com/PatLittle/flatgit", "details": {"label": "markdown-guide", "score": 1.4}}
+{"id": 2, "name": "Orders table", "category": "data", "count": 240, "price": 19.95, "date": "2026-02-03", "active": true, "url": "https://patlittle.github.io/flatgit/", "details": {"label": "orders-table", "score": 24.0}}
+{"id": 3, "name": "Office preview", "category": "document", "count": 8, "price": 42.5, "date": "2026-03-22", "active": false, "url": "https://view.officeapps.live.com/", "details": {"label": "office-preview", "score": 0.8}}
+{"id": 4, "name": "SQLite query", "category": "database", "count": 86, "price": 7.25, "date": "2026-04-10", "active": true, "url": "https://sqlite.org/", "details": {"label": "sqlite-query", "score": 8.6}}
+{"id": 5, "name": "Mermaid diagram", "category": "diagram", "count": 31, "price": 12, "date": "2026-05-19", "active": true, "url": "https://mermaid.js.org/", "details": {"label": "mermaid-diagram", "score": 3.1}}
+{"id": 6, "name": "Parquet sample", "category": "data", "count": 175, "price": 33.4, "date": "2026-06-07", "active": false, "url": "https://parquet.apache.org/", "details": {"label": "parquet-sample", "score": 17.5}}

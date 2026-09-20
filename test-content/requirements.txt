@@ -1,0 +1,6 @@
+beautifulsoup4==4.13.5
+duckdb==1.4.0
+Markdown==3.9
+openpyxl==3.1.5
+playwright==1.55.0
+weasyprint==66.0
