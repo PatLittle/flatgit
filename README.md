@@ -46,7 +46,8 @@ CSV, TSV, JSON records, SQLite query results, and Parquet rows use the interacti
 | Content | Supported extensions | Behaviour |
 | --- | --- | --- |
 | Delimited data | `.csv`, `.tsv` | Interactive table with search, filters, sorting, pagination, column controls, and CSV export. |
-| JSON data | `.json`, `.jsonl`, `.ndjson`, `.geojson` | Record arrays can be flattened into a table; JSON tree/source uses syntax highlighting and folding. |
+| JSON data | `.json`, `.jsonl`, `.ndjson` | Record arrays can be flattened into a table; JSON tree/source uses syntax highlighting and folding. |
+| GeoJSON | `.geojson` | Table, collapsible JSON tree, and interactive Leaflet map modes with feature-property popups. |
 | Markdown | `.md`, `.markdown`, `.mdown`, `.mkd` | Rendered, Source, and Split modes with GitHub styling, sanitized HTML, repository-relative links/images, badges, and Mermaid fences. |
 | Mermaid | `.mmd`, `.mermaid` | Rendered Mermaid diagram. |
 | Parquet | `.parquet`, `.pq` | Interactive table; up to the first 5,000 rows are loaded in the browser. |

@@ -563,19 +563,53 @@
     } catch (e) { throw new Error(`JSON parse error: ${e.message}`); }
     const wrapper = document.createElement('div');
     const bar = document.createElement('div'); bar.className='json-mode-bar';
-    const tableBtn = document.createElement('button'), rawBtn=document.createElement('button'), tabs=document.createElement('div'); tabs.className='json-tabs';
-    tableBtn.textContent='Table'; rawBtn.textContent='JSON tree'; tabs.append(tableBtn,rawBtn); bar.append(tabs); appendMinimalActions(bar); wrapper.append(bar);
+    const tableBtn = document.createElement('button'), rawBtn=document.createElement('button'), mapBtn=document.createElement('button'), tabs=document.createElement('div'); tabs.className='json-tabs';
+    const isGeoJson=extension==='geojson';
+    tableBtn.textContent='Table'; rawBtn.textContent='JSON tree'; mapBtn.textContent='Map'; tabs.append(tableBtn,rawBtn);if(isGeoJson)tabs.append(mapBtn);bar.append(tabs); appendMinimalActions(bar); wrapper.append(bar);
     const body=document.createElement('div'); wrapper.append(body); els.viewer.replaceChildren(wrapper);
     const records = Array.isArray(data) ? data : (data && typeof data==='object' ? findBestArray(data) : []);
     const tableable = Array.isArray(records) && records.length && records.every(x => x && typeof x==='object' && !Array.isArray(x));
-    const showRaw = () => { body.className='json-tree'; renderCode(JSON.stringify(data,null,2),state.currentFile?.path||'data.json',body,'ace/mode/json'); tableBtn.classList.remove('active'); rawBtn.classList.add('active'); };
+    let map=null;
+    const clearMode=()=>{destroyCodeViewer();if(map){map.remove();map=null;}};
+    const setActive=active=>[tableBtn,rawBtn,mapBtn].forEach(button=>button.classList.toggle('active',button===active));
+    const showRaw = () => { clearMode();body.className='json-tree'; renderCode(JSON.stringify(data,null,2),state.currentFile?.path||'data.json',body,'ace/mode/json');setActive(rawBtn); };
     const showTable = () => {
-      destroyCodeViewer();
+      clearMode();
       if (!tableable) return showRaw();
       const flat=records.map(x=>flattenObject(x)); const cols=[...new Set(flat.flatMap(Object.keys))];
-      body.className=''; body.innerHTML=''; renderTable(flat,cols,body); tableBtn.classList.add('active'); rawBtn.classList.remove('active');
+      body.className=''; body.innerHTML=''; renderTable(flat,cols,body);setActive(tableBtn);
     };
-    tableBtn.onclick=showTable; rawBtn.onclick=showRaw; tableable ? showTable() : showRaw();
+    const showMap=()=>{
+      clearMode();setActive(mapBtn);body.className='geojson-map-view';body.innerHTML='<div class="geojson-map" role="region" aria-label="GeoJSON interactive map"></div><div class="geojson-map-status" aria-live="polite"></div>';
+      const mapElement=$('.geojson-map',body),status=$('.geojson-map-status',body);
+      if(!window.L){status.textContent='The map library could not be loaded.';return;}
+      try{
+        map=L.map(mapElement,{zoomControl:true});
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+        const featureLayer=L.geoJSON(data,{
+          style:{color:'#0969da',weight:2,fillColor:'#58a6ff',fillOpacity:.3},
+          pointToLayer:(feature,latlng)=>L.circleMarker(latlng,{radius:7,color:'#0550ae',weight:2,fillColor:'#58a6ff',fillOpacity:.8}),
+          onEachFeature:(feature,layer)=>bindGeoJsonPopup(feature,layer)
+        }).addTo(map);
+        const bounds=featureLayer.getBounds();
+        if(bounds.isValid())map.fitBounds(bounds.pad(.08),{maxZoom:14});else map.setView([20,0],2);
+        const featureCount=data?.type==='FeatureCollection'&&Array.isArray(data.features)?data.features.length:(data?.type==='Feature'?1:featureLayer.getLayers().length);
+        status.textContent=`${featureCount.toLocaleString()} ${featureCount===1?'feature':'features'} displayed`;
+        requestAnimationFrame(()=>map?.invalidateSize());
+      }catch(error){if(map){map.remove();map=null;}mapElement.classList.add('hidden');status.classList.add('error');status.textContent=`Could not display this GeoJSON: ${error.message||error}`;}
+    };
+    state.cleanup=clearMode;
+    tableBtn.onclick=showTable;rawBtn.onclick=showRaw;mapBtn.onclick=showMap;tableable?showTable():showRaw();
+  }
+
+  function bindGeoJsonPopup(feature,layer){
+    const properties=feature?.properties;
+    if(!properties||typeof properties!=='object'||!Object.keys(properties).length)return;
+    const content=document.createElement('div');content.className='geojson-popup';
+    const title=document.createElement('strong');title.textContent=properties.name||properties.title||properties.id||'Feature details';content.append(title);
+    const list=document.createElement('dl');
+    Object.entries(properties).slice(0,50).forEach(([key,value])=>{const row=document.createElement('div'),term=document.createElement('dt'),description=document.createElement('dd');term.textContent=key;description.textContent=value&&typeof value==='object'?JSON.stringify(value):String(value??'');row.append(term,description);list.append(row);});
+    content.append(list);layer.bindPopup(content,{maxWidth:360});
   }
 
   function findBestArray(obj) {
@@ -788,7 +822,7 @@
   function openInput(value){try{navigate(parseGithubUrl(value));}catch(e){alert(e.message);}}
   els.urlForm.addEventListener('submit',e=>{e.preventDefault();openInput(els.urlInput.value);});
   els.welcomeForm.addEventListener('submit',e=>{e.preventDefault();openInput(els.welcomeUrl.value);});
-  $$('.example-link').forEach(b=>b.onclick=()=>openInput(b.dataset.example));
+  $$('.example-link[data-example]').forEach(b=>b.onclick=()=>openInput(b.dataset.example));
   els.branchSelect.addEventListener('change',()=>navigate({...state,ref:els.branchSelect.value,path:state.path}));
   els.copyLink.addEventListener('click',async()=>{await navigator.clipboard.writeText(location.href);const old=els.copyLink.textContent;els.copyLink.textContent='Copied!';setTimeout(()=>els.copyLink.textContent=old,1200);});
   els.historyButton.addEventListener('click',renderHistory);

@@ -9,6 +9,7 @@
   <meta name="description" content="Browse and inspect public GitHub repositories, data files, documents, databases, Markdown, and Gists entirely in your browser.">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="./app.css">
   <script defer src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/marked@16.2.1/lib/marked.umd.js"></script>
@@ -17,6 +18,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/sql.js@1.13.0/dist/sql-wasm.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ace.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/ace-builds@1.44.0/src-min-noconflict/ext-modelist.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script defer src="./app.js"></script>
 </head>
 <body>
@@ -48,8 +50,8 @@
           <button class="primary large" type="submit">View repository</button>
         </form>
         <div class="examples">
-          <button class="example-link" type="button" data-example="https://github.com/github/gitignore/blob/main/README.md">Try a Markdown file</button>
-          <button class="example-link" type="button" data-example="https://github.com/vega/vega-datasets/blob/main/data/seattle-weather.csv">Try a CSV file</button>
+          <a class="example-link" href="https://patlittle.github.io/flatgit/full/patlittle/flatgit/blob/main/test-content/generated/README.md">Try a Markdown file</a>
+          <a class="example-link" href="https://patlittle.github.io/flatgit/full/patlittle/flatgit/blob/main/test-content/generated/demo.csv">Try a CSV file</a>
         </div>
       </div>
       <div class="feature-grid">
@@ -89,7 +91,7 @@
               <thead><tr><th>Content</th><th>Extensions</th><th>Preview</th></tr></thead>
               <tbody>
                 <tr><td>Delimited data</td><td><code>.csv</code>, <code>.tsv</code></td><td>Interactive table with search, filters, sorting, pagination, column controls, and CSV export.</td></tr>
-                <tr><td>JSON data</td><td><code>.json</code>, <code>.jsonl</code>, <code>.ndjson</code>, <code>.geojson</code></td><td>Table view for record arrays plus a collapsible, syntax-highlighted JSON tree/source view.</td></tr>
+                <tr><td>JSON data</td><td><code>.json</code>, <code>.jsonl</code>, <code>.ndjson</code>, <code>.geojson</code></td><td>Table view for record arrays plus a collapsible, syntax-highlighted JSON tree/source view. GeoJSON also includes an interactive map.</td></tr>
                 <tr><td>Markdown</td><td><code>.md</code>, <code>.markdown</code>, <code>.mdown</code>, <code>.mkd</code></td><td>Rendered, Source, and Split modes with GitHub styling, safe HTML, repository-relative links/images, badges, and Mermaid fences.</td></tr>
                 <tr><td>Mermaid</td><td><code>.mmd</code>, <code>.mermaid</code></td><td>Rendered diagram preview.</td></tr>
                 <tr><td>Parquet</td><td><code>.parquet</code>, <code>.pq</code></td><td>Interactive table; up to the first 5,000 rows are loaded in the browser.</td></tr>
@@ -142,6 +144,11 @@ LIMIT 20;</code></pre>
           </article>
         </div>
       </section>
+      <footer class="landing-footer">
+        <a href="https://github.com/PatLittle/flatgit/" target="_blank" rel="noopener" aria-label="Open the FlatGit source repository on GitHub">
+          <img alt="Open Source" src="https://img.shields.io/badge/Open_Source-grey?style=for-the-badge&amp;logo=github&amp;link=https%3A%2F%2Fgithub.com%2FPatLittle%2Fflatgit%2F">
+        </a>
+      </footer>
     </section>
 
     <section id="workspace" class="workspace hidden" aria-live="polite">
@@ -202,7 +209,12 @@ LIMIT 20;</code></pre>
     </dl>
     <div class="shortcut-footer">
       <p class="shortcut-note">Shortcuts are ignored while typing in a form field or code viewer.</p>
-      <a class="button-link" href="./" data-home>FlatGit landing page</a>
+      <div class="shortcut-links">
+        <a class="button-link" href="./" data-home>FlatGit landing page</a>
+        <a class="badge-link" href="https://github.com/PatLittle/flatgit/issues/new" target="_blank" rel="noopener" aria-label="Report a FlatGit issue or bug on GitHub">
+          <img alt="Report an issue" src="https://img.shields.io/badge/Report%20an%20issue-grey?style=for-the-badge&amp;logo=github&amp;link=https%3A%2F%2Fgithub.com%2FPatLittle%2Fflatgit%2Fissues%2Fnew">
+        </a>
+      </div>
     </div>
   </dialog>
 
