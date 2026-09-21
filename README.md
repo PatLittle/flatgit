@@ -1,4 +1,7 @@
+
 # FlatGit
+![](https://raw.githubusercontent.com/patlittle/flatgit/main/assets/flatgit-logo-option-3.svg)
+
 
 A static, client-side GitHub data and Markdown viewer inspired by FlatGitHub / Flat Viewer.
 
