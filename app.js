@@ -585,7 +585,7 @@
       if(!window.L){status.textContent='The map library could not be loaded.';return;}
       try{
         map=L.map(mapElement,{zoomControl:true});
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
         const featureLayer=L.geoJSON(data,{
           style:{color:'#0969da',weight:2,fillColor:'#58a6ff',fillOpacity:.3},
           pointToLayer:(feature,latlng)=>L.circleMarker(latlng,{radius:7,color:'#0550ae',weight:2,fillColor:'#58a6ff',fillOpacity:.8}),
