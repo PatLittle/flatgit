@@ -64,6 +64,7 @@ body.workspace-active.mode-simple { padding-left: 0; }
 .welcome { max-width: 1120px; padding: 6vh 1.5rem 4rem; margin: 0 auto; }
 .hero-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: clamp(2rem,5vw,4.5rem); box-shadow: var(--shadow); }
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; font-weight: 700; }
+.hero-logo { display: block; width: min(800px,100%); height: auto; margin: .8rem 0 1.5rem; }
 h1 { font-size: clamp(2.2rem,5vw,4.6rem); line-height: 1.02; letter-spacing: -.04em; max-width: 780px; margin: .35rem 0 1.15rem; }
 .lede { max-width: 760px; color: var(--muted); font-size: 1.2rem; line-height: 1.6; }
 .hero-form { display: flex; gap: .6rem; margin-top: 1.7rem; max-width: 850px; }
@@ -99,6 +100,8 @@ h1 { font-size: clamp(2.2rem,5vw,4.6rem); line-height: 1.02; letter-spacing: -.0
 body.workspace-active.mode-full { padding-left: 300px; }
 .sidebar { border-right: 1px solid var(--border); background: var(--panel); min-width: 0; position: fixed; inset: 0 auto 0 0; width: 300px; height: 100vh; height: 100dvh; display: grid; grid-template-rows: 60px auto auto minmax(0,1fr); overflow: hidden; z-index: 30; }
 .sidebar-chrome { height: 60px; display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding: 0 .75rem; color: #f0f6fc; background: var(--header); border-bottom: 1px solid #30363d; }
+.sidebar-brand { width: 160px; height: 40px; flex: 0 0 160px; overflow: visible; }
+.sidebar-brand-logo { display: block; width: 160px; height: 40px; max-width: none; transition: transform .18s ease; }
 .sidebar-toggle { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border-radius: 7px; color: #f0f6fc; background: transparent; border-color: #57606a; }
 .sidebar-toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .sidebar-toggle .expand-icon { display: none; }
@@ -328,8 +331,9 @@ kbd { display: inline-block; min-width: 1.8em; padding: .15rem .38rem; text-alig
 body.workspace-active.mode-full.sidebar-collapsed { padding-left: 52px; }
 #sidebar.collapsed { width: 52px; min-width: 52px; display: block; overflow: hidden; }
 #sidebar.collapsed > *:not(.sidebar-chrome) { display: none !important; }
-#sidebar.collapsed .sidebar-chrome { height: auto; min-height: 104px; display: grid; grid-template-columns: 1fr; justify-items: center; align-content: start; padding: .6rem .25rem; }
-#sidebar.collapsed .brand-label { display: none; }
+#sidebar.collapsed .sidebar-chrome { height: auto; min-height: 218px; display: grid; grid-template-columns: 1fr; justify-items: center; align-content: start; gap: .55rem; padding: .6rem .25rem; }
+#sidebar.collapsed .sidebar-brand { width: 40px; height: 160px; display: grid; place-items: center; flex-basis: auto; }
+#sidebar.collapsed .sidebar-brand-logo { transform: rotate(90deg); }
 #sidebar.collapsed #sidebar-toggle { display: grid !important; }
 #sidebar.collapsed .collapse-icon { display: none; }
 #sidebar.collapsed .expand-icon { display: inline; }
